@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block title %}new list{% endblock %}
+{% block content %}
+
+    {% if not translations %}
+        {% if not message %}
+            {{form.as_hidden}}
+            <div class="container">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        {% for field in form.visible_fields %}
+                            <label for="{{field.auto_id}}" class="form-label">Check in dictionary</label>
+                            {{field|add_class:'form-control'}}
+                        {% endfor %}
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+        {% endif %}
+    {% endif %}
+    </div>
+    <br>
+    <div class="container">
+        {% for element in translations %}
+            <h4>{{element.word}}</h4>
+            {% if element.phonetic %}
+                <p>[{{element.phonetic}}] <a href="{{element.audio}}"><strong>Listen</strong></a></p>
+            {% else %}
+                &nbsp;
+            {% endif %}
+            {% if element.phonetic %}
+                <p><strong>Origin</strong>: {{element.origin}}</p>
+            {% else %}
+                &nbsp;
+            {% endif %}
+            <ol>
+                {% for i in element.definitions %}
+                    <li>
+                        <p><strong>Definition</strong>: {{i.definition}}</p>
+                        {% if i.example %}
+                            <p>Example: "{{i.example}}"</p>
+                        {% else %}
+                            &nbsp;
+                        {% endif %}
+                        {% if i.synonym %}
+                            <p><strong>Synonym</strong>: {{i.synonym|join:', '}}</p>
+                        {% else %}
+                            &nbsp;
+                        {% endif %}
+                        {% if i.antonym %}
+                            <p><strong>Antonym</strong>: {{i.antonym|join:', '}}</p>
+                        {% else %}
+                            &nbsp;
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ol>
+        {% endfor %}
+        <br>
+        <h4>{{message}}</h4>
+    </div>
+{% endblock %}

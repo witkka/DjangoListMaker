@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block title %}new list{% endblock %}
+{% block content %}
+    <div class="container">
+        {% if invalid %}
+            {% for word in invalid %}
+                <p>Słowa, których nie znaleziono w słowniku: {{word}}</p>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="container">
+        <h4>Lista słowek znalezionych w słowniku</h4>
+        <div class="container">
+            <form action="download" method="post">
+                {% csrf_token %}
+                {% for translation in translations %}
+                    {% for t in translation %}
+                        <p><strong>{{t.word}}</strong>: {{t.definitions|join:'; '}}&#13;&#10;</p>
+                    {% endfor %}
+                {% endfor %}
+                <button type="submit" formmethod="POST" class="btn btn-primary">Download list</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

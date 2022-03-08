@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block title %}context search{% endblock %}
+{% block content %}
+    {% load highlight %}
+    <br>
+    {% if not lines %}
+        {{form.as_hidden}}
+        <div class="d-flex justify-content-around">
+            <form id="'contextSearchForm" role="form" method="post" action="{% url 'context' %}">
+                {% csrf_token %}
+                <div class="row ">
+                    {% for hidden in form.hidden_fields %}
+                        {{ hidden }}
+                    {% endfor %}
+                    {% for field in form.visible_fields %}
+                        <div class="form-group">
+                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {{ field|add_class:'form-control' }}
+                            {% for error in field.errors %}
+                                <span class="help-block">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
+                <br>
+                <button type="submit" class="btn btn-primary">Sign in</button>
+            </form>
+        </div>
+    {% endif %}
+    <hr>
+    <div class="row">
+        <p><strong>{{msg}}</strong></p>
+        {% for line in lines %}
+            <p>{{line|highlight:word}}</p>
+        {% endfor %}
+    </div>
+{% endblock %}
