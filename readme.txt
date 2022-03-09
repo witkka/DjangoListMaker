@@ -32,4 +32,26 @@ To run tests:
 To start development server:
 > manage.py runserver
 
+-------------------------------------------------------------------------
+User guide
 
+./
+Starter page containing links to all components of this app
+
+./new
+Page containing form for submitting text or word list.
+After submitting, the same page displays a list of lowercased, cleaned and
+unique words from the submitted text.
+User checks checkboxes to select words, they want to translate
+
+./list
+Page containing word and its translations from 'https://api.dictionaryapi.dev'
+User can download this list as a .txt document to their device.
+
+./word_check
+Page containing a form, when entered, a word is searched for in a dictionary.
+The same page displays results.
+
+./context
+Page contains form, that allows the user to check a particular word in a
+lexical corpus
