@@ -2,7 +2,6 @@
 DjangoListMaker, version '1.0.0', March, 2022.
 This is README.txt,  user guide.
 Author: Katarzyna Witkowska, https://github.com/witkka
-Demo: https://desolate-badlands-81481.herokuapp.com/
 =========================================================================
 
 This package contains django project containing:
